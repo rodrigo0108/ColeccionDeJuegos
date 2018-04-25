@@ -28,7 +28,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.imageView?.image = UIImage(data: (juego.imagen!) as Data)
         return cell
     }
-    ///----------------------Principales funciones del elemento Table------------------------
+    //----------------------Principales funciones del elemento Table------------------------
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let juego = juegos[indexPath.row]
+        performSegue(withIdentifier: "juegoSegue", sender: juego)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let siguienteVC = segue.destination as! JuegoViewController
+        siguienteVC.juego = sender as? Juego
+    }
     override func viewWillAppear(_ animated: Bool) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         do{
